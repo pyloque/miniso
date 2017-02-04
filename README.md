@@ -142,10 +142,10 @@ server.route(router -> {
 		boolean c = req.bool("c");
 		String d = req.string("d");
 		List<Integer> e = req.int32s("e");
-		int f = req.validator("f").checkInt32(value -> {
+		int f = req.crack("f").checkInt32(value -> {
 			return value >= 0;
 		});
-		List<String> g = req.validator("g").checkStrings(value -> {
+		List<String> g = req.crack("g").checkStrings(value -> {
 			return value.length > 10;
 		});
 		// illegals will throw ParamError
