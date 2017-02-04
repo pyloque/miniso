@@ -22,54 +22,54 @@ public class JettyRequest {
 	}
 
 	public String string(String name) {
-		return validator(name).string();
+		return crack(name).string();
 	}
 
 	public String string(String name, String defaultValue) {
-		return validator(name).string(defaultValue);
+		return crack(name).string(defaultValue);
 	}
 
 	public int int32(String name) {
-		return validator(name).int32();
+		return crack(name).int32();
 	}
 
 	public int int32(String name, int defaultValue) {
-		return validator(name).int32(defaultValue);
+		return crack(name).int32(defaultValue);
 	}
 
 	public long int64(String name) {
-		return validator(name).int64();
+		return crack(name).int64();
 	}
 
 	public long int64(String name, long defaultValue) {
-		return validator(name).int64(defaultValue);
+		return crack(name).int64(defaultValue);
 	}
 
 	public boolean bool(String name) {
-		return validator(name).bool();
+		return crack(name).bool();
 	}
 
 	public boolean bool(String name, boolean defaultValue) {
-		return validator(name).bool(defaultValue);
+		return crack(name).bool(defaultValue);
 	}
 
 	public List<String> strings(String name) {
-		return validator(name).strings();
+		return crack(name).strings();
 	}
 
 	public List<Integer> int32s(String name) {
-		return validator(name).int32s();
+		return crack(name).int32s();
 	}
 
 	public List<Long> int64s(String name) {
-		return validator(name).int64s();
+		return crack(name).int64s();
 	}
 
 	public List<Boolean> bools(String name) {
-		return validator(name).bools();
+		return crack(name).bools();
 	}
 
-	public ParamValidator validator(String name) {
+	public ParamCracker crack(String name) {
 		String[] values = req.getParameterValues(name);
 		List<String> result = null;
 		if (values == null) {
@@ -80,7 +80,7 @@ public class JettyRequest {
 				result.add(value);
 			}
 		}
-		return new ParamValidator(name, result);
+		return new ParamCracker(name, result);
 	}
 
 	public void setHandled(boolean handled) {

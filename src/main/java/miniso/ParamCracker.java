@@ -6,39 +6,23 @@ import java.util.function.Function;
 
 import miniso.error.ParamError;
 
-public class ParamValidator {
+public class ParamCracker {
 
 	private String name;
 	private List<String> values;
 
-	public ParamValidator(String name, List<String> values) {
+	public ParamCracker(String name, List<String> values) {
 		this.name = name;
 		this.values = values;
 	}
 
-	public ParamValidator size(int size) {
+	public ParamCracker size(int size) {
 		assertIf(values.size() == size, String.format("param %s size illegal", name));
 		return this;
 	}
 
-	public ParamValidator one() {
+	public ParamCracker one() {
 		return size(1);
-	}
-
-	public ParamValidator check(Function<String, Boolean> func, String msg) {
-		for (String value : values) {
-			if (!func.apply(value)) {
-				if (msg == null) {
-					msg = String.format("param %s with value=%s check error", name, value);
-				}
-				throw new ParamError(msg);
-			}
-		}
-		return this;
-	}
-
-	public ParamValidator check(Function<String, Boolean> func) {
-		return check(func, null);
 	}
 
 	public String string() {
@@ -55,7 +39,7 @@ public class ParamValidator {
 		}
 		return value;
 	}
-	
+
 	public String checkString(Function<String, Boolean> func, String msg) {
 		String value = string();
 		if (!func.apply(value)) {
@@ -212,7 +196,7 @@ public class ParamValidator {
 	public List<String> strings() {
 		return values;
 	}
-	
+
 	public List<String> checkStrings(Function<String, Boolean> func, String msg) {
 		List<String> values = strings();
 		for (String value : values) {
