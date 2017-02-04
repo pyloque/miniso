@@ -29,7 +29,7 @@ public class Application {
 2. Freemarker
 
 ## Config
-```
+```java
 JettyConfig config = new JettyConfig();
 config.setHost("localhost").setPort(8080)
 	  .setAcceptors(1)  // accept connection threads
@@ -41,7 +41,7 @@ config.setHost("localhost").setPort(8080)
 ```
 
 ## Route
-```
+```java
 JettyServer server = new JettyServer();
 server.route(router -> {
 	router.get("/hello", (req, res) -> {});
