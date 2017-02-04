@@ -1,5 +1,7 @@
 #Miniso
-Cheap But Works! Maybe the Simplest Web Framework Of Java Universe !
+Cheap But Works!
+
+Maybe the Simplest Web Framework Of Java Universe !
 
 
 ## Hello World
@@ -71,12 +73,25 @@ class Company {
 ## Error Handling
 ```java
 JettyServer server = new JettyServer();
-server.route(router-> {})
+server.route(router-> {
+		  router.get("/google", (req, res) -> {
+		      throw new Redirect("http://www.google.com");	
+		  });
+		  router.get("/facebook", (req, res) -> {
+		      throw new NotFound("well, it's gone!");
+          })
+          router.get("/twitter", (req, res) -> {
+		      throw new Forbidden("well, it's forbidden!");
+		  });
+      })
       .error(NotFound.class, (req, res, exc) -> {
 	      res.template("404.html");
       })
-      .error(BadRequest.class, (req, res, exc) -> {
-          res.template("400.html");
+      .error(Forbidden.class, (req, res, exc) -> {
+          res.template("403.html");
+	  })
+	  .error(ParamError.class, (req, res, exc) -> {
+		  res.template("400.html");
 	  });
 ```
 
