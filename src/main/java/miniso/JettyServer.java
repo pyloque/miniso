@@ -28,7 +28,7 @@ public class JettyServer {
 		server = new Server(new QueuedThreadPool(config.getWorkers()));
 		ServerConnector connector = new NetworkTrafficServerConnector(server, null, null, null, config.getAcceptors(),
 				config.getSelectors(), new HttpConnectionFactory());
-		connector.setPort(8080);
+		connector.setPort(config.getPort());
 		server.addConnector(connector);
 		this.router = new JettyRouter();
 		this.handlers = new HandlerList();
