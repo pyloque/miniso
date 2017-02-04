@@ -25,8 +25,9 @@ public class Application {
 ```
 
 ## Dependencies
-1. Jetty
-2. Freemarker
+1. jetty
+2. freemarker
+3. fastjson
 
 ## Config
 ```java
@@ -55,6 +56,7 @@ server.route(router -> {
 	Company company = new Company();
 	router.child("/company", company::route) // sub modules using class
 });
+
 class Company {
 	public void hire(Request req, Response res) {}
 	public void dismiss(Request req, Response res) {}
@@ -65,3 +67,78 @@ class Company {
 	}
 }
 ```
+
+## Error Handling
+```java
+JettyServer server = new JettyServer();
+server.route(router-> {})
+      .error(NotFound.class, (req, res, exc) -> {
+	      res.template("404.html");
+      })
+      .error(BadRequest.class, (req, res, exc) -> {
+          res.template("400.html");
+	  });
+```
+
+## Output Style
+```java
+JettyServer server = new JettyServer();
+server.route(router -> {
+    router.get("/hello/json", (req, res) -> {
+        Map<String, Object> context = new HashMap<>();
+        context.put("hello", "world");
+        res.json(context);
+    });
+    router.get("/hello/tpl", (req, res) -> {
+        Map<String, Object> context = new HashMap<>();
+        context.put("hello", "world");
+        res.template("hello.ftl", context);
+    });
+    router.get("/hello/text", (req, res) -> {
+        res.html("hello, world!");
+    });
+});
+```
+
+## Request Filter Ordering
+```java
+JettyServer server = new JettyServer();
+server.route(router -> {})
+	  .before((req, res) -> {}) // global before filter
+	  .after((req, res) -> {})  // global after filter
+	  .before(path, (req, res) -> {})  // before filter of specified path
+	  .after(path, (req, res) -> {}) // after filter of specified path
+
+# if any filter return false, subsequently filters and route handle will not be executed
+```
+1. global before filters
+2. before filters of specified path
+3. route handle of specified path
+4. global after filters
+5. after filters of specified path
+
+## Request Parameter Checking
+```java
+JettyServer server = new JettyServer();
+server.route(router -> {
+	router.get("/hello", (req, res) -> {
+		int a = req.int32("a");
+		long b = req.int64("b", 1L);
+		boolean c = req.bool("c");
+		String d = req.string("d");
+		List<Integer> e = req.int32s("e");
+		int f = req.validator("f").checkInt32(value -> {
+			return value >= 0;
+		});
+		List<String> g = req.validator("g").checkStrings(value -> {
+			return value.length > 10;
+		});
+		// illegals will throw ParamError
+	});
+});
+```
+
+## Notice
+1. https not supported yet!
+2. restful style url matching not supported!
+3. too simple, too naive!
