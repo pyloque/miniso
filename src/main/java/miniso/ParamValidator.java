@@ -55,6 +55,17 @@ public class ParamValidator {
 		}
 		return value;
 	}
+	
+	public String checkString(Function<String, Boolean> func, String msg) {
+		String value = string();
+		if (!func.apply(value)) {
+			if (msg == null) {
+				msg = String.format("param %s with value=%s check string error", name, value);
+			}
+			throw new ParamError(msg);
+		}
+		return value;
+	}
 
 	public int int32() {
 		String value = string();
@@ -199,6 +210,19 @@ public class ParamValidator {
 	}
 
 	public List<String> strings() {
+		return values;
+	}
+	
+	public List<String> checkStrings(Function<String, Boolean> func, String msg) {
+		List<String> values = strings();
+		for (String value : values) {
+			if (!func.apply(value)) {
+				if (msg == null) {
+					msg = String.format("param %s with value=%s check strings error", name, value);
+				}
+				throw new ParamError(msg);
+			}
+		}
 		return values;
 	}
 

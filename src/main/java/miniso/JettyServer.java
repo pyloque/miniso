@@ -44,6 +44,10 @@ public class JettyServer {
 		this.handlers.addHandler(new JettyHandler(router, errorHandler, config));
 	}
 
+	public JettyServer() {
+		this(new JettyConfig());
+	}
+
 	public JettyServer route(Consumer<JettyRouter> consumer) {
 		consumer.accept(router);
 		return this;

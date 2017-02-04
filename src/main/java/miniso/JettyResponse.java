@@ -2,6 +2,7 @@ package miniso;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.function.Consumer;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -96,6 +97,11 @@ public class JettyResponse {
 		return ok("application/json", JSON.toJSONString(o));
 	}
 
+	public JettyResponse customize(Consumer<Response> consumer) {
+		consumer.accept(response);
+		return this;
+	}
+
 	public void template(String template, Object context) {
 		try {
 			StringWriter stringWriter = new StringWriter();
@@ -121,5 +127,5 @@ public class JettyResponse {
 		}
 		return freemarker;
 	}
-	
+
 }

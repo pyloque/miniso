@@ -16,72 +16,81 @@ public class JettyConfig {
 		return host;
 	}
 
-	public void setHost(String host) {
+	public JettyConfig setHost(String host) {
 		this.host = host;
+		return this;
 	}
 
 	public int getPort() {
 		return port;
 	}
 
-	public void setPort(int port) {
+	public JettyConfig setPort(int port) {
 		this.port = port;
+		return this;
 	}
 
 	public int getAcceptors() {
 		return acceptors;
 	}
 
-	public void setAcceptors(int acceptors) {
+	public JettyConfig setAcceptors(int acceptors) {
 		this.acceptors = acceptors;
+		return this;
 	}
 
 	public int getSelectors() {
 		return selectors;
 	}
 
-	public void setSelectors(int selectors) {
+	public JettyConfig setSelectors(int selectors) {
 		this.selectors = selectors;
+		return this;
 	}
 
 	public int getWorkers() {
 		return workers;
 	}
 
-	public void setWorkers(int workers) {
+	public JettyConfig setWorkers(int workers) {
 		this.workers = workers;
+		return this;
 	}
 
 	public String getStaticDir() {
 		return staticDir;
 	}
 
-	public void setStaticDir(String staticDir) {
+	public JettyConfig setStaticDir(String staticDir) {
 		this.staticDir = staticDir;
+		return this;
 	}
 
 	public String getStaticPrefix() {
 		return staticPrefix;
 	}
 
-	public void setStaticPrefix(String staticPrefix) {
+	public JettyConfig setStaticPrefix(String staticPrefix) {
 		this.staticPrefix = staticPrefix;
+		return this;
 	}
 
 	public String getTemplateDir() {
 		return templateDir;
 	}
 
-	public void setTemplateDir(String templateDir) {
+	public JettyConfig setTemplateDir(String templateDir) {
 		this.templateDir = templateDir;
+		return this;
 	}
 
 	public boolean isAccurate() {
 		return accurate;
 	}
 
-	public void setAccurate(boolean accurate) {
+	public JettyConfig setAccurate(boolean accurate) {
 		this.accurate = accurate;
+		return this;
 	}
 
 }
