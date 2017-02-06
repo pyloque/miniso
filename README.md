@@ -38,8 +38,9 @@ config.setHost("localhost").setPort(8080)
 	  .setAcceptors(1)  // accept connection threads
 	  .setSelectors(2)  // read write connection threads
 	  .setWorkers(10)  // handle http request threads
-	  .setStaticDir("/static") // static resource directory in classpath
 	  .setStaticPrefix("/static")  // static resource url prefix
+	  .setClasspathStaticDir("/static") // static resource directory in classpath
+	  .setExternalStaticDir("/whatever") // static resource directory in file system
 	  .setTemplateDir("/pages");  // freemarker template directory in classpath
 ```
 

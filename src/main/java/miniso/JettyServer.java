@@ -32,13 +32,21 @@ public class JettyServer {
 		server.addConnector(connector);
 		this.router = new JettyRouter();
 		this.handlers = new HandlerList();
-		if (config.getStaticDir() != null) {
-			ResourceHandler staticHandler = new ResourceHandler();
-			staticHandler.setBaseResource(Resource.newClassPathResource(config.getStaticDir()));
-			staticHandler.setDirectoriesListed(false);
-			ContextHandler ctxHandler = new ContextHandler(config.getStaticPrefix());
-			ctxHandler.setHandler(staticHandler);
-			handlers.addHandler(ctxHandler);
+		if (config.getClasspathStaticDir() != null) {
+			ResourceHandler classpathResourceHandler = new ResourceHandler();
+			classpathResourceHandler.setBaseResource(Resource.newClassPathResource(config.getClasspathStaticDir()));
+			classpathResourceHandler.setDirectoriesListed(false);
+			ContextHandler staticHandler = new ContextHandler(config.getStaticPrefix());
+			staticHandler.setHandler(classpathResourceHandler);
+			handlers.addHandler(staticHandler);
+		}
+		if (config.getExternalStaticDir() != null) {
+			ResourceHandler externalResourceHandler = new ResourceHandler();
+			externalResourceHandler.setResourceBase(config.getExternalStaticDir());
+			externalResourceHandler.setDirectoriesListed(false);
+			ContextHandler staticHandler = new ContextHandler(config.getStaticPrefix());
+			staticHandler.setHandler(externalResourceHandler);
+			handlers.addHandler(staticHandler);
 		}
 		this.errorHandler = new JettyErrorHandler();
 		this.handlers.addHandler(new JettyHandler(router, errorHandler, config));

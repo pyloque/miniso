@@ -7,8 +7,9 @@ public class JettyConfig {
 	private int acceptors = 1;
 	private int selectors = 2;
 	private int workers = 10;
-	private String staticDir = "/static";
 	private String staticPrefix = "/static";
+	private String classpathStaticDir = "/static";
+	private String externalStaticDir;
 	private String templateDir = "/pages";
 	private boolean accurate = false;
 
@@ -57,13 +58,12 @@ public class JettyConfig {
 		return this;
 	}
 
-	public String getStaticDir() {
-		return staticDir;
+	public String getClasspathStaticDir() {
+		return classpathStaticDir;
 	}
 
-	public JettyConfig setStaticDir(String staticDir) {
-		this.staticDir = staticDir;
-		return this;
+	public void setClasspathStaticDir(String classpathStaticDir) {
+		this.classpathStaticDir = classpathStaticDir;
 	}
 
 	public String getStaticPrefix() {
@@ -81,6 +81,15 @@ public class JettyConfig {
 
 	public JettyConfig setTemplateDir(String templateDir) {
 		this.templateDir = templateDir;
+		return this;
+	}
+
+	public String getExternalStaticDir() {
+		return externalStaticDir;
+	}
+
+	public JettyConfig setExternalStaticDir(String externalStaticDir) {
+		this.externalStaticDir = externalStaticDir;
 		return this;
 	}
 
