@@ -125,7 +125,7 @@ server.route(router -> {})
 	  .before(path, (req, res) -> {})  // before filter of specified path
 	  .after(path, (req, res) -> {}) // after filter of specified path
 
-# if any filter return false, subsequently filters and route handle will not be executed
+// if any filter return false, subsequently filters and route handle will not be executed
 ```
 1. global before filters
 2. before filters of specified path
